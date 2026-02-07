@@ -1,87 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description" content="Personal portfolio website" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio • Thejas</title>
-
-  <!-- Favicons (optional) -->
+  <meta name="description" content="Thejas M — Software Developer portfolio showcasing full-stack projects, skills, and certifications." />
+  <meta name="author" content="Thejas M" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⭐</text></svg>">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    /* ====== Animations ====== */
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.6; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* Trigger fade-in on load */
-    body { animation: fadeIn 1s ease-in-out; }
-
-    section, .card, .skill-pill, .timeline .item {
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
-    section { animation-delay: 0.2s; }
-    .card { animation-delay: 0.3s; }
-    .skill-pill { animation-delay: 0.4s; }
-    .timeline .item { animation-delay: 0.5s; }
-
-    /* Floating animation for portrait */
-    .hero img.portrait {
-      animation: float 4s ease-in-out infinite;
-    }
-
-    /* Button hover animation */
-    .btn {
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .btn:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(0,0,0,.35);
-    }
-
-    /* Skill pill pop effect */
-    .skill-pill {
-      transition: transform .25s ease, filter .25s ease;
-    }
-    .skill-pill:hover {
-      transform: scale(1.08);
-      filter: brightness(1.15);
-    }
-
-    /* Timeline dots pulse */
-    .timeline .item::before {
-      animation: pulse 2s infinite;
-    }
-
-    /* ====== Design Tokens ====== */
-    @media (max-width: 768px) {
-      html {
-        zoom: 1.3; 
-        overflow-x: auto;
-      }
-      body {
-        min-width: 1024px;
-      }
-    }
-
     :root {
       --bg: #0b0f17;
       --panel: #0f1623;
@@ -91,175 +18,293 @@
       --brand-2: #8a7dff;
       --ok: #38d39f;
       --warn: #f5a524;
-      --danger: #ff6b6b;
-      --ring: 0 0 0 .2rem color-mix(in oklab, var(--brand) 35%, transparent);
+      --border: hsl(210 15% 20% / 0.5);
       --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --font: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
     }
 
-    .light {
-      --bg: #ffffff;
-      --panel: #f2f5f9;
-      --text: #0b1220;
-      --muted: #4b5563;
-      --brand: #2563eb;
-      --brand-2: #7c3aed;
-      --shadow: 0 10px 30px rgba(2,6,23,.08);
-    }
-
-    /* ====== Base ====== */
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0; font-family: var(--font); color: var(--text); 
-      background: radial-gradient(1200px 800px at 80% -10%, color-mix(in oklab, var(--brand) 15%, transparent), transparent 60%),
-                 radial-gradient(1000px 700px at -10% 20%, color-mix(in oklab, var(--brand-2) 15%, transparent), transparent 60%),
-                 var(--bg);
-      line-height: 1.6; letter-spacing: .2px;
+      font-family: var(--font); color: var(--text); line-height: 1.6;
+      background:
+        radial-gradient(1200px 800px at 80% -10%, rgba(100,181,246,0.12), transparent 60%),
+        radial-gradient(1000px 700px at -10% 20%, rgba(138,125,255,0.12), transparent 60%),
+        var(--bg);
     }
-
     a { color: inherit; text-decoration: none; }
     .container { width: min(1100px, 92%); margin: 0 auto; }
-    .btn { display: inline-flex; align-items: center; gap: .5rem; padding: .75rem 1rem; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--brand) 35%, transparent); background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 60%, transparent), var(--panel)); box-shadow: var(--shadow); color: var(--text); font-weight: 600; }
-    .btn.secondary { border-color: transparent; background: transparent; box-shadow: none; color: var(--brand); }
 
-    header.site-header { position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(140%) blur(8px); background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom: 1px solid color-mix(in oklab, var(--muted) 20%, transparent); }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: .8rem 0; }
-    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 800; letter-spacing: .5px; }
-    .brand .logo { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
-    .nav a { padding: .5rem .75rem; border-radius: 999px; }
-    .nav a:hover { background: color-mix(in oklab, var(--panel) 60%, transparent); }
-    .nav-right { display: flex; align-items: center; gap: .25rem; }
+    /* ====== Animations ====== */
+    @keyframes fadeInUp { 0% { opacity:0; transform:translateY(30px); } 100% { opacity:1; transform:translateY(0); } }
+    @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+    @keyframes pulse-dot { 0% { transform:scale(1);opacity:1; } 50% { transform:scale(1.4);opacity:0.6; } 100% { transform:scale(1);opacity:1; } }
+    @keyframes typewriter { from { width: 0; } to { width: 100%; } }
+    @keyframes blink { 50% { border-color: transparent; } }
+
+    .fade-in { animation: fadeInUp 0.7s ease forwards; opacity: 0; }
+    .fade-d1 { animation-delay: 0.1s; }
+    .fade-d2 { animation-delay: 0.2s; }
+    .fade-d3 { animation-delay: 0.3s; }
+    .fade-d4 { animation-delay: 0.4s; }
+    .fade-d5 { animation-delay: 0.5s; }
+    .fade-d6 { animation-delay: 0.6s; }
+
+    /* ====== Glass Card ====== */
+    .glass-card {
+      background: linear-gradient(180deg, rgba(15,22,35,0.7), #0f1623);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+    }
+
+    /* ====== Gradient Text ====== */
+    .gradient-text {
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* ====== Badges ====== */
+    .tech-badge {
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid hsl(210 15% 20% / 0.6);
+      color: var(--muted); font-size: 0.85rem;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .tech-badge:hover { transform: scale(1.08); filter: brightness(1.15); }
+
+    /* ====== Buttons ====== */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.25rem; border-radius: 999px;
+      border: 1px solid rgba(100,181,246,0.35);
+      background: linear-gradient(180deg, rgba(15,22,35,0.6), #0f1623);
+      box-shadow: var(--shadow); color: var(--text); font-weight: 600;
+      transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 25px rgba(0,0,0,0.45); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; border-radius: 999px;
+      background: transparent; border: none;
+      color: var(--brand); font-weight: 600;
+      transition: transform 0.25s ease; cursor: pointer;
+    }
+    .btn-ghost:hover { transform: translateY(-2px); }
+
+    /* ====== Nav ====== */
+    .nav-glass {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: rgba(11,15,23,0.7);
+      border-bottom: 1px solid hsl(210 15% 20% / 0.3);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 0; }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 800; letter-spacing: 0.5px; }
+    .nav-logo {
+      width: 36px; height: 36px; display: grid; place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a { padding: 0.5rem 0.75rem; border-radius: 999px; font-size: 0.95rem; transition: background 0.2s; }
+    .nav-links a:hover { background: rgba(15,22,35,0.6); }
+    .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    .mobile-menu { display: none; flex-direction: column; gap: 0.5rem; padding: 1rem 0; }
+    .mobile-menu a { padding: 0.75rem 1rem; border-radius: 12px; }
+    .mobile-menu a:hover { background: rgba(15,22,35,0.6); }
 
     /* ====== Hero ====== */
-    .hero { display: grid; align-items: center; grid-template-columns: 1.1fr .9fr; gap: 2rem; padding: 4.5rem 0 3rem; }
-    .hero h1 { font-size: clamp(2rem, 3.5vw, 3.25rem); line-height: 1.15; margin: 0 0 .5rem; }
-    .hero p.sub { color: var(--muted); margin: 0 0 1.25rem; }
-    .badges { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 1.5rem; }
-    .badge { padding: .35rem .6rem; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--muted) 35%, transparent); color: var(--muted); font-size: .9rem; }
-    .hero img.portrait { width: 100%; max-width: 380px; border-radius: 24px; border: 1px solid color-mix(in oklab, var(--muted) 30%, transparent); box-shadow: var(--shadow); justify-self: end; aspect-ratio: 4/5; object-fit: cover; background: var(--panel); }
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 2rem; padding: 4.5rem 0 3rem; }
+    .hero h1 { font-size: clamp(2rem, 3.5vw, 3.25rem); line-height: 1.15; margin-bottom: 0.5rem; }
+    .hero .sub { color: var(--muted); margin-bottom: 1.25rem; }
+    .hero .badges { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1rem 0 1.5rem; }
+    .hero .actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .portrait {
+      width: 100%; max-width: 380px; border-radius: 24px;
+      border: 1px solid hsl(210 15% 20% / 0.3);
+      box-shadow: var(--shadow); justify-self: end;
+      aspect-ratio: 4/5; object-fit: cover; background: var(--panel);
+      animation: float 4s ease-in-out infinite;
+    }
+    .status-dot { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ok); font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .status-dot::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse-dot 2s infinite; }
 
-    /* ====== Sections ====== */
+    /* ====== Section Headers ====== */
     section { padding: 4rem 0; }
-    section header h2 { font-size: clamp(1.4rem, 2.3vw, 2rem); margin: 0 0 .35rem; }
-    section header p { color: var(--muted); margin: 0 0 1.25rem; }
+    .section-title { font-size: clamp(1.4rem, 2.3vw, 2rem); font-weight: 700; margin-bottom: 0.35rem; }
+    .section-sub { color: var(--muted); margin-bottom: 1.25rem; }
 
-    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(12, 1fr); }
-    .card { grid-column: span 4; background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 70%, transparent), var(--panel)); border: 1px solid color-mix(in oklab, var(--muted) 25%, transparent); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow); }
-    .card h3 { margin: .2rem 0 .5rem; font-size: 1.1rem; }
-    .card p { color: var(--muted); margin: 0; }
-    .card .tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .8rem; }
-    .tag { font-size: .8rem; border: 1px solid color-mix(in oklab, var(--muted) 30%, transparent); border-radius: 999px; padding: .25rem .5rem; color: var(--muted); }
+    /* ====== Grid ====== */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .grid-about { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
 
-    /* Skills */
-    .skills { display: flex; flex-wrap: wrap; gap: .6rem; }
+    /* ====== Cards ====== */
+    .card { padding: 1.2rem; }
+    .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .card p { color: var(--muted); font-size: 0.95rem; }
+    .card .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+    .card .emoji { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .card ul { list-style: none; padding: 0; color: var(--muted); }
+    .card ul li { padding: 0.25rem 0; }
 
-    /* Timeline */
-    .timeline { border-left: 2px dashed color-mix(in oklab, var(--muted) 30%, transparent); padding-left: 1rem; display: grid; gap: 1.2rem; }
-    .timeline .item { position: relative; }
-    .timeline .item::before { content: ""; position: absolute; left: -1.1rem; top: .4rem; width: .7rem; height: .7rem; background: linear-gradient(135deg, var(--brand), var(--brand-2)); border-radius: 50%; box-shadow: 0 0 0 .2rem color-mix(in oklab, var(--brand) 40%, transparent); }
+    /* ====== Skills ====== */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 
-    /* Contact */
-    form { display: grid; gap: .8rem; }
-    input, textarea { width: 100%; padding: .85rem 1rem; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--muted) 25%, transparent); background: var(--panel); color: var(--text); }
-    input:focus, textarea:focus { outline: none; box-shadow: var(--ring); border-color: color-mix(in oklab, var(--brand) 40%, transparent) }
-    textarea { min-height: 140px; resize: vertical; }
-
-    /* Footer */
-    footer { border-top: 1px solid color-mix(in oklab, var(--muted) 20%, transparent); padding: 2rem 0; color: var(--muted); }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero img.portrait { justify-self: center; }
-      .card { grid-column: span 6; }
+    /* ====== Timeline ====== */
+    .timeline { border-left: 2px dashed hsl(210 15% 20% / 0.5); padding-left: 1.25rem; display: grid; gap: 1.2rem; }
+    .timeline-item { position: relative; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -1.6rem; top: 0.4rem;
+      width: 0.75rem; height: 0.75rem;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      border-radius: 50%; box-shadow: 0 0 0 0.2rem rgba(100,181,246,0.35);
+      animation: pulse-dot 2s infinite;
     }
-    @media (max-width: 600px) {
-      .card { grid-column: span 12; }
-      .skills { justify-content: center; }
+    .timeline-item h3 { font-weight: 600; }
+    .timeline-item .meta { font-size: 0.9rem; color: var(--muted); }
+    .timeline-item p { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
+
+    /* ====== Contact ====== */
+    .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 1rem; }
+    form { display: grid; gap: 0.8rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .form-input {
+      width: 100%; padding: 0.85rem 1rem; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--panel);
+      color: var(--text); outline: none; font-family: var(--font); font-size: 0.95rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .form-input:focus { box-shadow: 0 0 0 0.2rem rgba(100,181,246,0.3); border-color: rgba(100,181,246,0.4); }
+    textarea.form-input { min-height: 140px; resize: vertical; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    /* ====== Footer ====== */
+    footer {
+      border-top: 1px solid hsl(210 15% 20% / 0.3); padding: 2rem 0;
+      display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 0.9rem;
     }
 
-    /* Print-friendly CV */
-    @media print {
-      header.site-header, .btn, .nav-right { display: none !important; }
-      body { background: #fff; }
-      .card, .skill-pill, .timeline, input, textarea { box-shadow: none; }
+    /* ====== Scrollbar Hide ====== */
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+    /* ====== Mobile ====== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .mobile-menu.open { display: flex; }
+
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 2.5rem 0 2rem; }
+      .portrait { justify-self: center; max-width: 200px; border-radius: 50%; aspect-ratio: 1; margin-bottom: 1rem; }
+      .hero .badges { justify-content: center; }
+      .hero .actions { justify-content: center; }
+      .status-dot { justify-content: center; }
+
+      .grid-about { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .skills-wrap { display: grid; grid-template-columns: 1fr 1fr; }
+
+      section { padding: 2.5rem 0; }
+      .section-title { font-size: 1.25rem; }
+
+      /* Mobile horizontal scroll for projects */
+      .projects-mobile { display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 1rem; }
+      .projects-mobile .glass-card { min-width: 280px; max-width: 300px; flex-shrink: 0; }
+      .projects-desktop { display: none; }
+    }
+    @media (min-width: 769px) {
+      .projects-mobile { display: none; }
+      .mobile-only { display: none; }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav">
-      <a href="#" class="brand" aria-label="Homepage">
-        <span class="logo" aria-hidden>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="white"/>
-          </svg>
+
+  <!-- ====== Navbar ====== -->
+  <header class="nav-glass">
+    <div class="container nav-inner">
+      <a href="#home" class="nav-brand">
+        <span class="nav-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="white"/></svg>
         </span>
-        <span>Thejas M</span>
+        Thejas M
       </a>
-      <nav class="nav-right" aria-label="Primary">
+      <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-        <button id="themeToggle" class="btn secondary" aria-label="Toggle theme">🌙</button>
       </nav>
+      <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu">☰</button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu container">
+      <a href="#about" onclick="closeMobileMenu()">About</a>
+      <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+      <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+      <a href="#certificates" onclick="closeMobileMenu()">Certificates</a>
+      <a href="#education" onclick="closeMobileMenu()">Education</a>
+      <a href="#contact" onclick="closeMobileMenu()">Contact</a>
     </div>
   </header>
 
   <!-- ====== Hero ====== -->
-  <section class="hero container" id="home">
+  <section id="home" class="hero container fade-in">
     <div>
-      <span class="pill">Available for work</span>
-      <h1>Hi, I'm <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">Thejas</span> — A Software Developer passionate about building scalable REST APIs and responsive full-stack applications.</h1>
-      <p class="sub">I engineer robust backend logic and streamlined data workflows , specializing in modern frameworks like Angular and React to deliver secure, multi-role management systems.</p>
-
-        <div class="badges">
-        <span class="badge">JavaScript</span>
-        <span class="badge">Angular</span>
-        <span class="badge">React.js</span>
-        <span class="badge">Node.js</span>
-        <span class="badge">MySQL</span>
-        <span class="badge">MongoDB</span>
-        <span class="badge">Express.js</span>
+      <div class="status-dot">Available for work</div>
+      <h1>Hi, I'm <span class="gradient-text">Thejas</span> <br>Software Developer</h1>
+      <p class="sub">I build scalable REST APIs and responsive full-stack web applications using modern technologies such as Angular, Next.js, Stored Procedures, and MongoDB.</p>
+      <div class="badges">
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">Angular</span>
+        <span class="tech-badge">React.js</span>
+        <span class="tech-badge">Node.js</span>
+        <span class="tech-badge">MySQL</span>
+        <span class="tech-badge">MongoDB</span>
+        <span class="tech-badge">Express.js</span>
       </div>
-
-      <div class="row">
-        <a class="btn" href="#projects">See Projects</a>
-        <a class="btn secondary" href="mailto:thejasmugunthan@gmail.com">Email Me</a>
+      <div class="actions">
+        <a class="btn-primary" href="#projects">See Projects</a>
+        <a class="btn-ghost" href="mailto:thejasmugunthan@gmail.com">Email Me →</a>
       </div>
     </div>
-    <a href="https://github.com/thejasmugunthan/Portfolio/blob/960717b3645161c24c186aa7e96919ca000698d7/20250207_191046.jpg" target="_blank">
-  <img class="portrait" 
-       src="https://github.com/thejasmugunthan/Portfolio/blob/960717b3645161c24c186aa7e96919ca000698d7/20250207_191046.jpg?raw=true" 
-       alt="Portrait placeholder" />
-</a>
+    <img class="portrait" src="https://github.com/thejasmugunthan/Portfolio/blob/960717b3645161c24c186aa7e96919ca000698d7/20250207_191046.jpg?raw=true" alt="Thejas M portrait" />
   </section>
 
   <!-- ====== About ====== -->
   <section id="about">
     <div class="container">
-      <header>
-        <h2>About</h2>
-        <p>A short intro about myself</p>
-      </header>
-      <div class="grid">
-        <article class="card" style="grid-column: span 8;">
+      <h2 class="section-title fade-in">About</h2>
+      <p class="section-sub fade-in fade-d1">A short intro about myself</p>
+      <div class="grid-about fade-in fade-d2">
+        <div class="glass-card card">
           <h3>Bio</h3>
-          <p>Motivated MCA student (currently in 3rd semester) aiming to start a career in software development and networking, where I 
-can apply my academic knowledge, learn new technologies, and contribute effectively to innovative projects. </p>
-        </article>
-        <aside class="card" style="grid-column: span 4;">
+          <p>I’ve completed my MCA and I'm currently working as a Software Development Engineer (SDE) Intern in Web Development, where I apply my academic foundation, learn new technologies, and contribute to building reliable and scalable web applications.</p>
+        </div>
+        <div class="glass-card card">
           <h3>Quick Facts</h3>
-          <ul style="margin:0; padding-left:1rem; color: var(--muted)">
+          <ul>
             <li>📍 Bengaluru, IN</li>
-            <li>🎓 MCA in PES</li>
+            <li>🎓 MCA at PES University</li>
             <li>💬 English, Kannada, Tamil</li>
-            <li>🕹️ Hobbies: Chess, Photography</li>
+            <li>🕹️ Chess, Photography</li>
           </ul>
-        </aside>
+        </div>
       </div>
     </div>
   </section>
@@ -267,216 +312,189 @@ can apply my academic knowledge, learn new technologies, and contribute effectiv
   <!-- ====== Projects ====== -->
   <section id="projects">
     <div class="container">
-      <header>
-        <h2>Projects</h2>
-        <p>Some things I’ve built recently.</p>
-      </header>
-      <div class="grid">
-        <article class="card">
-          <h3>AgriRent – Smart Equipment Rental Platform</h3>
-          <p>
-            Full-stack rental platform for farmers and owners with authentication, bookings,
-            and ML-based price prediction using real-time data. React + Express + SQL + ML.
-          </p>
-          <div class="tags">
-            <span class="tag">React</span>
-            <span class="tag">Node</span>
-            <span class="tag">SQL</span>
-            <span class="tag">Machine Learning</span>
-          </div>
-          <div class="spacer"></div>
-          <div class="row">
-            <a class="btn secondary" href="https://github.com/thejasmugunthan/AgriRent.git">Source</a>
-          </div>
-        </article>
+      <h2 class="section-title fade-in">Projects</h2>
+      <p class="section-sub fade-in fade-d1">Some things I've built recently.</p>
 
-        <article class="card">
+      <!-- Mobile: horizontal scroll -->
+      <div class="projects-mobile scrollbar-hide fade-in fade-d2">
+        <div class="glass-card card" style="min-width:280px;max-width:300px;flex-shrink:0;">
+          <div class="emoji">🌾</div>
+          <h3>AgriRent – Smart Equipment Rental</h3>
+          <p>Full-stack rental platform with auth, bookings, and ML-based price prediction.</p>
+          <div class="tags"><span class="tech-badge" style="font-size:.75rem">React</span><span class="tech-badge" style="font-size:.75rem">Node</span><span class="tech-badge" style="font-size:.75rem">SQL</span><span class="tech-badge" style="font-size:.75rem">ML</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/AgriRent.git" target="_blank" style="font-size:.85rem;margin-top:.5rem">Source →</a>
+        </div>
+        <div class="glass-card card" style="min-width:280px;max-width:300px;flex-shrink:0;">
+          <div class="emoji">🔗</div>
           <h3>InternLink – Internship Portal</h3>
-          <p>End-to-end platform for students and recruiters with auth, profiles, and job matching. Angular + Express + MySQL.</p>
-          <div class="tags">
-            <span class="tag">Angular</span><span class="tag">Node</span><span class="tag">MySQL</span>
-          </div>
-          <div class="spacer"></div>
-          <div class="row">
-            <a class="btn secondary" href="https://github.com/thejasmugunthan/InternLink.git">Source</a>
-    
-          </div>
-        </article>
-        <article class="card">
-          <h3>All-In-One-services</h3>
-          <p>Responsive single-page site with reservation flow, solt, and Booking page. Angular + Express + MySQL</p>
-          <div class="tags">
-            <span class="tag">Angular</span><span class="tag">Node</span><span class="tag">MySQl</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://github.com/thejasmugunthan/OneHub.git">Source</a>
-        </article>
-        <article class="card">
-          <h3>Expenses-Tracker</h3>
-          <p>An Expense Tracker application featuring route guards, reactive forms, and role-based access. Includes CSV and PDF export for financial reports.</p>
-          <div class="tags">
-            <span class="tag">Angular</span><span class="tag">Express</span><span class="tag">MySQL</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://github.com/thejasmugunthan/Expenses-Tracker.git">Source</a>
-        </article>
-        <article class="card">
-          <h3>Travel Easy – Android Travel Application</h3>
-          <p>
-            Mobile application for travel planning and navigation with route details,
-            destination search, and user-friendly UI. Built using Java and XML.
-          </p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">Android</span>
-            <span class="tag">XML</span>
-          </div>
-          <div class="spacer"></div>
-          <div class="row">
-            <a class="btn secondary" href="https://github.com/thejasmugunthan/Travel-Easy.git">Source</a>
-          </div>
-        </article>
+          <p>End-to-end platform for students and recruiters with auth, profiles, and job matching.</p>
+          <div class="tags"><span class="tech-badge" style="font-size:.75rem">Angular</span><span class="tech-badge" style="font-size:.75rem">Node</span><span class="tech-badge" style="font-size:.75rem">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/InternLink.git" target="_blank" style="font-size:.85rem;margin-top:.5rem">Source →</a>
+        </div>
+        <div class="glass-card card" style="min-width:280px;max-width:300px;flex-shrink:0;">
+          <div class="emoji">🏠</div>
+          <h3>All-In-One Services</h3>
+          <p>Responsive single-page site with reservation flow, slot management, and booking.</p>
+          <div class="tags"><span class="tech-badge" style="font-size:.75rem">Angular</span><span class="tech-badge" style="font-size:.75rem">Node</span><span class="tech-badge" style="font-size:.75rem">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/OneHub.git" target="_blank" style="font-size:.85rem;margin-top:.5rem">Source →</a>
+        </div>
+        <div class="glass-card card" style="min-width:280px;max-width:300px;flex-shrink:0;">
+          <div class="emoji">💰</div>
+          <h3>Expenses Tracker</h3>
+          <p>Expense Tracker with route guards, reactive forms, role-based access, CSV/PDF export.</p>
+          <div class="tags"><span class="tech-badge" style="font-size:.75rem">Angular</span><span class="tech-badge" style="font-size:.75rem">Express</span><span class="tech-badge" style="font-size:.75rem">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/Expenses-Tracker.git" target="_blank" style="font-size:.85rem;margin-top:.5rem">Source →</a>
+        </div>
+        <div class="glass-card card" style="min-width:280px;max-width:300px;flex-shrink:0;">
+          <div class="emoji">✈️</div>
+          <h3>Travel Easy – Android App</h3>
+          <p>Mobile app for travel planning and navigation with route details.</p>
+          <div class="tags"><span class="tech-badge" style="font-size:.75rem">Java</span><span class="tech-badge" style="font-size:.75rem">Android</span><span class="tech-badge" style="font-size:.75rem">XML</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/Travel-Easy.git" target="_blank" style="font-size:.85rem;margin-top:.5rem">Source →</a>
+        </div>
+      </div>
 
+      <!-- Desktop: grid -->
+      <div class="grid-3 projects-desktop fade-in fade-d2">
+        <div class="glass-card card">
+          <div class="emoji">🌾</div>
+          <h3>AgriRent – Smart Equipment Rental</h3>
+          <p>Full-stack rental platform with auth, bookings, and ML-based price prediction.</p>
+          <div class="tags"><span class="tech-badge">React</span><span class="tech-badge">Node</span><span class="tech-badge">SQL</span><span class="tech-badge">ML</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/AgriRent.git" target="_blank" style="margin-top:.75rem">Source →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">🔗</div>
+          <h3>InternLink – Internship Portal</h3>
+          <p>End-to-end platform for students and recruiters with auth, profiles, and job matching.</p>
+          <div class="tags"><span class="tech-badge">Angular</span><span class="tech-badge">Node</span><span class="tech-badge">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/InternLink.git" target="_blank" style="margin-top:.75rem">Source →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">🏠</div>
+          <h3>All-In-One Services</h3>
+          <p>Responsive single-page site with reservation flow, slot management, and booking.</p>
+          <div class="tags"><span class="tech-badge">Angular</span><span class="tech-badge">Node</span><span class="tech-badge">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/OneHub.git" target="_blank" style="margin-top:.75rem">Source →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">💰</div>
+          <h3>Expenses Tracker</h3>
+          <p>Expense Tracker with route guards, reactive forms, role-based access, CSV/PDF export.</p>
+          <div class="tags"><span class="tech-badge">Angular</span><span class="tech-badge">Express</span><span class="tech-badge">MySQL</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/Expenses-Tracker.git" target="_blank" style="margin-top:.75rem">Source →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">✈️</div>
+          <h3>Travel Easy – Android App</h3>
+          <p>Mobile app for travel planning and navigation with route details.</p>
+          <div class="tags"><span class="tech-badge">Java</span><span class="tech-badge">Android</span><span class="tech-badge">XML</span></div>
+          <a class="btn-ghost" href="https://github.com/thejasmugunthan/Travel-Easy.git" target="_blank" style="margin-top:.75rem">Source →</a>
+        </div>
       </div>
     </div>
   </section>
 
-
-
-    <!-- ====== Skills (New Pills) ====== -->
+  <!-- ====== Skills ====== -->
   <section id="skills">
     <div class="container">
-      <header>
-        <h2>Skills</h2>
-        <p>Tech I use day-to-day.</p>
-      </header>
-      <div class="badges">
-        <span class="badge">JavaScript</span>
-        <span class="badge">TypeScript</span>
-        <span class="badge">Angular</span>
-        <span class="badge">React.js</span>
-        <span class="badge">Node.js</span>
-        <span class="badge">Express.js</span>
-        <span class="badge">REST APIs</span>
-        <span class="badge">MySQL</span>
-        <span class="badge">MongoDB</span>
-        <span class="badge">SQL</span>
-        <span class="badge">JWT Authentication</span>
-        <span class="badge">Machine Learning</span>
-        <span class="badge">Git & GitHub</span>
+      <h2 class="section-title fade-in">Skills</h2>
+      <p class="section-sub fade-in fade-d1">Tech I use day-to-day.</p>
+      <div class="skills-wrap fade-in fade-d2">
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(250,204,21,0.2),rgba(202,138,4,0.1))">Java</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(250,204,21,0.2),rgba(202,138,4,0.1))">JavaScript</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(96,165,250,0.2),rgba(37,99,235,0.1))">TypeScript</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(96,165,250,0.2),rgba(37,99,235,0.1))">C#</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(248,113,113,0.2),rgba(220,38,38,0.1))">Angular</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(34,211,238,0.2),rgba(8,145,178,0.1))">React.js</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(34,211,238,0.2),rgba(8,145,178,0.1))">Next.js</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(74,222,128,0.2),rgba(22,163,74,0.1))">Node.js</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(156,163,175,0.2),rgba(75,85,99,0.1))">Express.js</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(156,163,175,0.2),rgba(75,85,99,0.1))">ASP.NET</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(192,132,252,0.2),rgba(147,51,234,0.1))">REST APIs</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(251,146,60,0.2),rgba(234,88,12,0.1))">MySQL</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(74,222,128,0.2),rgba(5,150,105,0.1))">MongoDB</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(96,165,250,0.2),rgba(79,70,229,0.1))">SQL</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(96,165,250,0.2),rgba(79,70,229,0.1))">Stored Procedures</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(244,114,182,0.2),rgba(219,39,119,0.1))">JWT Auth</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(167,139,250,0.2),rgba(124,58,237,0.1))">Machine Learning</span>
+        <span class="tech-badge" style="background:linear-gradient(to right,rgba(156,163,175,0.2),rgba(107,114,128,0.1))">Git & GitHub</span>
       </div>
+    </div>
+  </section>
 
-      </div>
-      </section>
   <!-- ====== Certificates ====== -->
   <section id="certificates">
     <div class="container">
-      <header>
-        <h2>Certificates</h2>
-        <p>Courses and certifications I’ve earned.</p>
-      </header>
-      <div class="grid">
-        <article class="card certificate-card">
-          <div class="icon">📜</div>
+      <h2 class="section-title fade-in">Certificates</h2>
+      <p class="section-sub fade-in fade-d1">Courses and certifications I've earned.</p>
+      <div class="grid-3 fade-in fade-d2">
+        <div class="glass-card card">
+          <div class="emoji">📜</div>
           <h3>Python</h3>
           <p>Completed an intensive course covering Python.</p>
-          <div class="tags">
-            <span class="tag">HackerRank</span>
-            <span class="tag">2024</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://drive.google.com/file/d/1rs0e9CI4F0xL8Ym-FwZm3Oic0HSZuel_/view?usp=sharing"target="_blank">View Certificate</a>
-        </article>
-
-        <article class="card certificate-card">
-          <div class="icon">📜</div>
+          <div class="tags"><span class="tech-badge">HackerRank</span><span class="tech-badge">2024</span></div>
+          <a class="btn-ghost" href="https://drive.google.com/file/d/1rs0e9CI4F0xL8Ym-FwZm3Oic0HSZuel_/view?usp=sharing" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">📜</div>
           <h3>SQL</h3>
-          <p>Certified in SQL</p>
-          <div class="tags">
-            <span class="tag">HackerRank</span>
-            <span class="tag">2023</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://drive.google.com/file/d/1zxIMmD87nfn9qNC9lzF1PtDNZxtMaYNs/view?usp=sharing" target="_blank">View Certificate</a>
-        </article>
-        
-
-
-        <article class="card certificate-card">
-          <div class="icon">☕</div>
-          <h3>Software engineering </h3>
-          <p>Certified in Software engineering and Agile software development.</p>
-          <div class="tags">
-            <span class="tag">Infosys</span>
-            <span class="tag">2023</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://drive.google.com/file/d/11hOdnOq1eXPImqD2_N3LHCl1fQCI72_w/view?usp=sharing" target="_blank">View Certificate</a>
-        </article>
-
-        <article class="card certificate-card">
-          <div class="icon">📜</div>
-          <h3>PHP </h3>
-          <p>Certified in PHP for beginners</p>
-          <div class="tags">
-            <span class="tag">Infosys</span>
-            <span class="tag">2023</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://drive.google.com/file/d/19DM9sEfOThrFwoyVFUJ7u0ksmEBwWwSP/view?usp=sharing" target="_blank">View Certificate</a>
-        </article>
-
-        <article class="card certificate-card">
-          <div class="icon">☕</div>
-          <h3>Generative AI </h3>
-          <p>Certified in Introduction to Generative AI</p>
-          <div class="tags">
-            <span class="tag">Google</span>
-            <span class="tag">2023</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="https://drive.google.com/file/d/1gfec40_O0XOzeUoIINuOYX37ZHzgo58-/view?usp=sharing" target="_blank">View Certificate</a>
-        </article>
-
-
-                <article class="card certificate-card">
-          <div class="icon">🌐</div>
+          <p>Certified in SQL.</p>
+          <div class="tags"><span class="tech-badge">HackerRank</span><span class="tech-badge">2023</span></div>
+          <a class="btn-ghost" href="https://drive.google.com/file/d/1zxIMmD87nfn9qNC9lzF1PtDNZxtMaYNs/view?usp=sharing" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">☕</div>
+          <h3>Software Engineering</h3>
+          <p>Certified in Software Engineering and Agile development.</p>
+          <div class="tags"><span class="tech-badge">Infosys</span><span class="tech-badge">2023</span></div>
+          <a class="btn-ghost" href="https://drive.google.com/file/d/11hOdnOq1eXPImqD2_N3LHCl1fQCI72_w/view?usp=sharing" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">📜</div>
+          <h3>PHP</h3>
+          <p>Certified in PHP for beginners.</p>
+          <div class="tags"><span class="tech-badge">Infosys</span><span class="tech-badge">2023</span></div>
+          <a class="btn-ghost" href="https://drive.google.com/file/d/19DM9sEfOThrFwoyVFUJ7u0ksmEBwWwSP/view?usp=sharing" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">☕</div>
+          <h3>Generative AI</h3>
+          <p>Introduction to Generative AI.</p>
+          <div class="tags"><span class="tech-badge">Google</span><span class="tech-badge">2023</span></div>
+          <a class="btn-ghost" href="https://drive.google.com/file/d/1gfec40_O0XOzeUoIINuOYX37ZHzgo58-/view?usp=sharing" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
+        <div class="glass-card card">
+          <div class="emoji">🌐</div>
           <h3>Networking Essentials</h3>
-          <p>Earned a certification in computer networking fundamentals.</p>
-          <div class="tags">
-            <span class="tag">Cisco</span>
-            <span class="tag">2023</span>
-          </div>
-          <div class="spacer"></div>
-          <a class="btn secondary" href="certificates/networking.pdf" target="_blank">View Certificate</a>
-        </article>
+          <p>Certification in computer networking fundamentals.</p>
+          <div class="tags"><span class="tech-badge">Cisco</span><span class="tech-badge">2023</span></div>
+          <a class="btn-ghost" href="#" target="_blank" style="margin-top:.75rem">View Certificate →</a>
+        </div>
       </div>
     </div>
   </section>
 
-
-    <!-- ====== Education ====== -->
+  <!-- ====== Education ====== -->
   <section id="education">
     <div class="container">
-      <header>
-        <h2>Education</h2>
-        <p>My academic background and qualifications.</p>
-      </header>
-      <div class="timeline">
-        <div class="item">
+      <h2 class="section-title fade-in">Education</h2>
+      <p class="section-sub fade-in fade-d1">My academic background and qualifications.</p>
+      <div class="timeline fade-in fade-d2">
+        <div class="timeline-item">
           <h3>Master of Computer Applications (MCA) • PES University</h3>
           <div class="meta">2024 — Present · Bengaluru</div>
-          <p>Currently in 3rd semester. Gaining strong foundations in software development, data structures, networking, and full-stack development.</p>
+          <p>Currently in 4rd semester. Software development, data structures, networking, and full-stack development.</p>
         </div>
-        <div class="item">
+        <div class="timeline-item">
           <h3>Bachelor of Computer Applications (BCA) • SRCAS</h3>
           <div class="meta">2020 — 2024 · Coimbatore</div>
-          <p>Graduated with first class. Focused on programming, database management, and web development.</p>
+          <p>Graduated with first class. Programming, database management, and web development.</p>
         </div>
-        <div class="item">
+        <div class="timeline-item">
           <h3>Pre-University (PUC) • SVM</h3>
           <div class="meta">2018 — 2020 · Salem</div>
-          <p>Completed with Computer Science as an elective, which sparked my interest in coding and problem solving.</p>
+          <p>Completed with Computer Science as an elective, which sparked my interest in coding.</p>
         </div>
       </div>
     </div>
@@ -485,102 +503,85 @@ can apply my academic knowledge, learn new technologies, and contribute effectiv
   <!-- ====== Contact ====== -->
   <section id="contact">
     <div class="container">
-      <header>
-        <h2>Contact</h2>
-        <p>Have an opportunity or idea? Let’s talk.</p>
-      </header>
-      <div class="grid">
-        <div class="card" style="grid-column: span 7;">
+      <h2 class="section-title fade-in">Contact</h2>
+      <p class="section-sub fade-in fade-d1">Have an opportunity or idea? Let's talk.</p>
+      <div class="contact-grid fade-in fade-d2">
+        <div class="glass-card card">
           <form id="contactForm" novalidate>
-            <div class="row">
-              <input aria-label="Your name" name="name" placeholder="Your name" required />
-              <input aria-label="Your email" name="email" type="email" placeholder="Email" required />
+            <div class="form-row">
+              <input class="form-input" name="name" placeholder="Your name" required />
+              <input class="form-input" name="email" type="email" placeholder="Email" required />
             </div>
-            <input aria-label="Subject" name="subject" placeholder="Subject" />
-            <textarea aria-label="Message" name="message" placeholder="Message" required></textarea>
-            <div class="row">
-              <button class="btn" type="submit">Send Message</button>
-              <a class="btn secondary" href="https://drive.google.com/file/d/1PM1UAYiKjd2nj3g5qIYlx6INURUZ2b8a/view?usp=sharing" download>Download Resume</a>
+            <input class="form-input" name="subject" placeholder="Subject" />
+            <textarea class="form-input" name="message" placeholder="Message" required></textarea>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <button class="btn-primary" type="submit">Send Message</button>
+              <a class="btn-ghost" href="https://drive.google.com/file/d/1PM1UAYiKjd2nj3g5qIYlx6INURUZ2b8a/view?usp=sharing" target="_blank">Download Resume</a>
             </div>
-            <p id="formStatus" class="muted" aria-live="polite"></p>
+            <p id="formStatus" style="color:var(--muted);font-size:.9rem;"></p>
           </form>
         </div>
-        <aside class="card" style="grid-column: span 5;">
+        <div class="glass-card card">
           <h3>Elsewhere</h3>
-          <div class="row">
-            <a class="btn secondary" href="https://github.com/thejasmugunthan" aria-label="GitHub">GitHub</a>
-            <a class="btn secondary" href="https://linkedin.com/in/thejas2004" aria-label="LinkedIn">LinkedIn</a>
-            <a class="btn secondary" href="https://www.instagram.com/thejas__2004/" aria-label="LinkedIn">Instagram</a>
-            <a class="btn secondary" href="https://www.hackerrank.com/profile/thejas2004" aria-label="LinkedIn">HackerRank</a>
-            <a class="btn secondary" href="https://x.com/Thejas2004" aria-label="Twitter">Twitter</a>
-            <a class="btn secondary" href="mailto:thejasmugunthan@gmail.com" aria-label="Email">Email</a>
+          <div class="social-links" style="margin-top:0.75rem;">
+            <a class="btn-ghost" href="https://github.com/thejasmugunthan" target="_blank">GitHub</a>
+            <a class="btn-ghost" href="https://linkedin.com/in/thejas2004" target="_blank">LinkedIn</a>
+            <a class="btn-ghost" href="https://www.instagram.com/thejas__2004/" target="_blank">Instagram</a>
+            <a class="btn-ghost" href="https://www.hackerrank.com/profile/thejas2004" target="_blank">HackerRank</a>
+            <a class="btn-ghost" href="https://x.com/Thejas2004" target="_blank">Twitter</a>
+            <a class="btn-ghost" href="mailto:thejasmugunthan@gmail.com">Email</a>
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ====== Footer ====== -->
   <footer>
-    <div class="container row" style="justify-content: space-between;">
-      <span>© <span id="year"></span> Thejas.</span>
-      <a href="#home" class="btn secondary">Back to top ⤴</a>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>© <script>document.write(new Date().getFullYear())</script> Thejas.</span>
+      <a class="btn-ghost" href="#home">Back to top ⤴</a>
     </div>
   </footer>
 
   <script>
-    // ====== Smooth scroll for same-page links ======
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
+      a.addEventListener('click', e => {
         const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
       });
     });
 
-    // ====== Theme toggle (light/dark) ======
-    const themeToggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') document.body.classList.add('light');
-
-    function updateThemeIcon() {
-      themeToggle.textContent = document.body.classList.contains('light') ? '🌞' : '🌙';
-    }
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-      updateThemeIcon();
-    });
-    updateThemeIcon();
-
-    // ====== Contact form (mailto compose) ======
-    const form = document.getElementById('contactForm');
-    const statusEl = document.getElementById('formStatus');
-    form.addEventListener('submit', (e) => {
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', e => {
       e.preventDefault();
-      const data = Object.fromEntries(new FormData(form));
-      // Basic validation
-      if (!data.name || !data.email || !data.message) {
-        statusEl.textContent = 'Please fill in your name, email, and message.';
-        statusEl.style.color = 'var(--warn)';
+      const d = Object.fromEntries(new FormData(e.target));
+      if (!d.name || !d.email || !d.message) {
+        document.getElementById('formStatus').textContent = 'Please fill in all required fields.';
+        document.getElementById('formStatus').style.color = 'var(--warn)';
         return;
       }
-      const subject = encodeURIComponent(data.subject || `New message from ${data.name}`);
-      const body = encodeURIComponent(`${data.message}\n\nFrom: ${data.name} <${data.email}>`);
-      const mailto = `mailto:thejasmugunthan@example.com?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
-      statusEl.textContent = 'Opening your mail app…';
-      statusEl.style.color = 'var(--muted)';
-      form.reset();
+      const subject = encodeURIComponent(d.subject || 'New message from ' + d.name);
+      const body = encodeURIComponent(d.message + '\n\nFrom: ' + d.name + ' <' + d.email + '>');
+      window.location.href = 'mailto:thejasmugunthan@gmail.com?subject=' + subject + '&body=' + body;
+      document.getElementById('formStatus').textContent = 'Opening your mail app…';
+      e.target.reset();
     });
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-  document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=1024');
-}
 
-    // ====== Current year ======
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
+
