@@ -80,6 +80,7 @@
     /* NAV */
     .nav-glass {
       position:sticky; top:0; z-index:50;
+      position: relative;
       backdrop-filter:saturate(150%) blur(10px);
       background:rgba(8,12,20,.82);
       border-bottom:1px solid hsl(210 15% 20% / .3);
@@ -90,7 +91,29 @@
     .nav-links a { padding:.45rem .75rem; border-radius:999px; font-size:.92rem; transition:background .2s; }
     .nav-links a:hover { background:rgba(15,22,35,.7); }
     .hamburger  { display:none; background:none; border:none; color:var(--text); font-size:1.5rem; cursor:pointer; }
-    .mobile-menu{ display:none; flex-direction:column; gap:.5rem; padding:1rem 0; }
+    .mobile-menu {
+  display: none;
+  position: absolute;
+  top: 70px;
+  right: 15px;
+
+  width: 220px;
+  padding: 12px;
+
+  flex-direction: column;
+  gap: 8px;
+
+  background: rgba(8,12,20,.95);
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,.4);
+
+  z-index: 1000;
+}
+
     .mobile-menu a { padding:.75rem 1rem; border-radius:12px; }
     .mobile-menu a:hover { background:rgba(15,22,35,.7); }
     .mobile-menu.open { display:flex; }
@@ -1251,6 +1274,11 @@ Currently, I’m working as an SDE Intern where I develop APIs, turn manual proc
       requestAnimationFrame(scrollCards);
     }
   })();
+  function closeMenu() {
+  document.getElementById('mMenu').classList.remove('open');
+}
+
+window.addEventListener('scroll', closeMenu);
 </script>
 </body>
 </html>
